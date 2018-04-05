@@ -6,9 +6,12 @@
 //  Copyright © 2018 Dylan Saldanha. All rights reserved.
 //
 
+//for OS X
 #include <OpenGL/gl.h>
 #include <OpenGl/glu.h>
 #include <GLUT/glut.h>
+//for Windows
+//#include<GL/glut.h>
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
