@@ -7,11 +7,11 @@
 //
 
 //for OS X
-#include <OpenGL/gl.h>
-#include <OpenGl/glu.h>
-#include <GLUT/glut.h>
+//#include <OpenGL/gl.h>
+//#include <OpenGl/glu.h>
+//#include <GLUT/glut.h>
 //for Windows
-//#include<GL/glut.h>
+#include<GL/glut.h>
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
@@ -1589,6 +1589,7 @@ void display3() {
     getLines();
     
     display4();
+    
 }
 void mykey(unsigned char key, int x, int y) {
     
@@ -1607,6 +1608,7 @@ void mykey(unsigned char key, int x, int y) {
         drawString2(385, 225, 0, " 1, 2, 3, 4, 5");
         
         glFlush();
+
     } else if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5') {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -1666,7 +1668,25 @@ void mykey(unsigned char key, int x, int y) {
             exit(0);
         }
         glFlush();
-    } else {
+    } 
+	/*else if((key == 'Q' || key == 'q') && flag == 1){
+	   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glFlush();
+        glClearColor(1.0, 1.0, 1.0, 1.0);
+        glFlush();
+        glColor3f(1.0, 0.0, 0.0);
+        drawString1(100, 400, 0, " Quit Key Pressed ");
+        glFlush();
+        for (i = 0; i <= 1500; i++) {
+            delay();
+        }
+        for (i = 0; i <= 1500; i++) {
+            delay();
+        }
+        exit(0);
+
+    }*/
+	else {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glFlush();
         glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -1706,11 +1726,11 @@ int main(int argc, char * * argv) {
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(1378, 768);
     glutInitWindowPosition(0, 0);
-    glutCreateWindow("Simulationof Dijkestra's Algorithm");
+    glutCreateWindow("Simulation of Dijkestra's Algorithm");
     void init();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.0, 0.0, 0.0, 0.0);
-    //glutFullScreen();
+    glutFullScreen();
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutKeyboardFunc(mykey);
