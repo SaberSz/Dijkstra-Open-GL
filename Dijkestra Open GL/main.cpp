@@ -5,7 +5,6 @@
 //  Created by Dylan Saldanha on 05/04/18.
 //  Copyright © 2018 Dylan Saldanha. All rights reserved.
 //
-//c:\users\student\documents\visual studio 2010\settings\CurrentSettings.vssettings
 
 //for OS X
 //#include <OpenGL/gl.h>
@@ -1610,7 +1609,24 @@ void mykey(unsigned char key, int x, int y) {
         
         glFlush();
 
-    } else if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5') {
+    }
+	else if((key == 'Q' || key == 'q') ){
+	   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glFlush();
+        glClearColor(1.0, 1.0, 1.0, 1.0);
+        glFlush();
+        glColor3f(1.0, 0.0, 0.0);
+        drawString1(100, 400, 0, " Quit Key Pressed ");
+        glFlush();
+        for (i = 0; i <= 1500; i++) {
+            delay();
+        }
+        for (i = 0; i <= 1500; i++) {
+            delay();
+        }
+        exit(0);
+
+    }else if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5') {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.0, 0.0, 0.0, 0.0);
         getCube1();
@@ -1666,27 +1682,10 @@ void mykey(unsigned char key, int x, int y) {
             for (i = 0; i <= 1500; i++) {
                 delay();
             }
-            exit(0);
+            
         }
         glFlush();
-    } 
-	/*else if((key == 'Q' || key == 'q') && flag == 1){
-	   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glFlush();
-        glClearColor(1.0, 1.0, 1.0, 1.0);
-        glFlush();
-        glColor3f(1.0, 0.0, 0.0);
-        drawString1(100, 400, 0, " Quit Key Pressed ");
-        glFlush();
-        for (i = 0; i <= 1500; i++) {
-            delay();
-        }
-        for (i = 0; i <= 1500; i++) {
-            delay();
-        }
-        exit(0);
-
-    }*/
+    }
 	else {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glFlush();
@@ -1701,7 +1700,8 @@ void mykey(unsigned char key, int x, int y) {
         for (i = 0; i <= 1500; i++) {
             delay();
         }
-        exit(0);
+        //display2();
+		exit(0);
     }
 }
 void display() {
