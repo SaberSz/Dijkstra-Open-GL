@@ -172,7 +172,7 @@ void rev(char s[]) {
     }
 }
 void my_itoa(int n, char s[]) {
-    int i, sign;
+    int i, sign=0;
     
     if (sign == n)
         n = -n;
@@ -1589,7 +1589,6 @@ void display3() {
     getLines();
     
     display4();
-    
 }
 void mykey(unsigned char key, int x, int y) {
     
