@@ -1641,7 +1641,7 @@ void mykey(unsigned char key, int x, int y) {
             flag = 2;
             drawString2(385, 235, 0, " Enter the number for Destination Node");
             drawString2(385, 225, 0, " 1, 2, 3, 4, 5");
-            
+            //source
             if (key == '1') {
                 a = 1;
             } else if (key == '2') {
@@ -1655,6 +1655,7 @@ void mykey(unsigned char key, int x, int y) {
             }
             
         } else if (flag == 2) {
+			//dest
             if (key == '1') {
                 b = 1;
             } else if (key == '2') {
@@ -1666,7 +1667,7 @@ void mykey(unsigned char key, int x, int y) {
             } else {
                 b = 5;
             }
-            
+            flag=1;
             display3();
         } else {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
