@@ -18,7 +18,7 @@
 #define GRAPHSIZE 10
 #define INFINITY GRAPHSIZE*GRAPHSIZE
 #define MAX(a, b) ((a > b) ? (a) : (b))
-
+#include<iostream>
 int n = 5;
 long dist[GRAPHSIZE][GRAPHSIZE];
 long d[GRAPHSIZE];
@@ -89,6 +89,7 @@ void destpath(int g) {
         j++;
     }
     path[j] = g;
+	
 }
 
 void dijkstra(int s) {
@@ -122,9 +123,16 @@ void dijkstra(int s) {
     }
 }
 void callPath(int a, int b) {
+	
+	
+	std::cout<<"Source :"<<a<<std::endl<<"Dest :"<<b<<std::endl;
     int i, j, k;
     int u, v, w, dest, src;
-    
+    for (i=0;i<GRAPHSIZE;i++){
+		  getPath[i] = '\0';
+			  path[i]= '\0';
+
+	}
     src = a;
     dest = b;
     
@@ -133,12 +141,15 @@ void callPath(int a, int b) {
     destpath(dest);
     
     k = 0;
+	std::cout<<"Path"<<std::endl;
     while (path[k] != '\0') {
         getPath[k] = path[k];
+		std::cout<<getPath[k]<<std::endl;
         k++;
     }
     
 }
+
 void distanceMatrix() {
     int i, j;
     for (i = 1; i <= n; ++i)
