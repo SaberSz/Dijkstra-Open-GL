@@ -765,11 +765,11 @@ void display2() {
     glFlush();
 }
 void display1() {
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(0.05, 0.28, 0.63, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1.0, 1.0, 1.0);
+    glColor4f(0.13, 0.13, 0.13, 1.0);
     drawString1(125, 400, 0, " SIMULATION OF DIJKESTRA'S ALGORITHM");
-    glColor3f(1.0, 1.0, 1.0);
+    glColor4f(0.13, 0.13, 0.13, 1.0);
     drawString1(125, 300, 0, " By Aman Gupta and Dylan Saldanha");
     glLineWidth(5);
     
