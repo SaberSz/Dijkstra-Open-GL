@@ -1,12 +1,14 @@
 //for OS X
-//#include <OpenGL/gl.h>
-//#include <OpenGl/glu.h>
-//#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGl/glu.h>
+#include <GLUT/glut.h>
 //for Windows
-#include<GL/glut.h>
+//#include<GL/glut.h>
+#include <chrono>
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
+#include <sstream>
 #define GRAPHSIZE 10
 #define INFINITY GRAPHSIZE*GRAPHSIZE
 #define MAX(a, b) ((a > b) ? (a) : (b))
@@ -21,6 +23,7 @@ int getPath[GRAPHSIZE];
 long getDistance[GRAPHSIZE][GRAPHSIZE];
 float x = 0, y = 0;
 int sc=0,dc=0;
+
 float m[GRAPHSIZE][GRAPHSIZE] = {
 	{
 		0,
@@ -59,7 +62,21 @@ float m[GRAPHSIZE][GRAPHSIZE] = {
 
 int i = 0, j = 0, k = 0;
 int a, b, flag = 0;
-
+class Timer
+{
+public:
+    Timer() : beg_(clock_::now()) {}
+    void reset() { beg_ = clock_::now(); }
+    double elapsed() const {
+        return std::chrono::duration_cast<second_>
+        (clock_::now() - beg_).count(); }
+    
+private:
+    typedef std::chrono::high_resolution_clock clock_;
+    typedef std::chrono::duration<double, std::ratio<1> > second_;
+    std::chrono::time_point<clock_> beg_;
+};
+Timer tmr;
 void destpath(int g) {
 	int i, j, w;
 	i = 0;
@@ -115,9 +132,11 @@ void dijkstra(int s) {
 			}
 	}
 }
+
 void callPath(int a, int b) {
 
-
+    
+    tmr.reset();
 	std::cout << "Source :" << a << std::endl << "Dest :" << b << std::endl;
 	int i, j, k;
 	int u, v, w, dest, src;
@@ -210,7 +229,7 @@ void drawString2(float x, float y, float z, char * string) {
 	char * c;
 	glRasterPos3f(x, y, z);
 	for (c = string; *c != '\0'; c++) {
-		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *c);
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
 	}
 }
 void delay() {
@@ -759,7 +778,7 @@ void getLines() {
 }
 void display2() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClearColor(1.0, 1.0, 1.0, 0.0);
 	getCube1();
 	getCube2();
 	getCube3();
@@ -775,9 +794,9 @@ void display2() {
 void display1() {
 	glClearColor(0.05, 0.28, 0.63, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
-	glColor4f(0.13, 0.13, 0.13, 1.0);
+	glColor4f(1, 1, 1, 1.0);
 	drawString1(125, 400, 0, " SIMULATION OF DIJKESTRA'S ALGORITHM");
-	glColor4f(0.13, 0.13, 0.13, 1.0);
+	glColor4f(1, 1, 1, 1.0);
 	drawString1(125, 300, 0, " By Aman Gupta and Dylan Saldanha");
 	glLineWidth(5);
 
@@ -979,7 +998,14 @@ void getFinalCube5() {
 	glFlush();
 }
 void display4() {
-
+    glColor3f(1.0, 1.0, 1.0);
+    double t = tmr.elapsed();
+    std::ostringstream strs;
+    strs << t;
+    std::string str = strs.str();
+    std::string str1="That took "+str+" seconds";
+    char *sb=&str1[0];
+    drawString2(385, 235, 0,sb);
 	if (a == b) {
 		if (a == 1) {
 			getFinalCube1();
@@ -1618,7 +1644,7 @@ void display3() {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-
+    
 	callPath(a, b);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -1793,11 +1819,19 @@ void menu(int id){
 		getLines();
 		glColor3f(1.0, 1.0, 1.0);
 		drawString2(385, 235, 0, " Enter the number for Source Node");
-		drawString2(385, 225, 0, " 1, 2, 3, 4, 5");
+		drawString2(385, 225, 0, "1(Mysore), 2(Bangalore), 3(Kolkata), 4(Belgaum), 5(Chennai)");
 
 		glFlush();
 		break;
-	case 1:
+    case 2:
+            glutSetWindow(1);
+            x = 0; y = 0;
+            sc=0;dc=0;
+            i = 0;j = 0;k = 0;
+            a=0; b=0; flag = 0;
+            glutPostRedisplay();
+            break;
+	case 3:
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glFlush();
 		glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -1813,6 +1847,7 @@ void menu(int id){
 		}
 		exit(0);
 		break;
+            
 	}
 	//glutPostRedisplay();
 
@@ -1903,17 +1938,19 @@ void submenu2(int id){
 	}
 
 }
+
 int main(int argc, char * * argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(1378, 768);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Simulation of Dijkestra's Algorithm");
+    
 	void init();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glutFullScreen();
-
+    
 	int sm=glutCreateMenu(submenu1);
 	glutAddMenuEntry("Mysore",1);
 	glutAddMenuEntry("Bangalore",2);
@@ -1932,11 +1969,15 @@ int main(int argc, char * * argv) {
 	glutAddMenuEntry("Run",0);
 	glutAddSubMenu("Source",sm);
 	glutAddSubMenu("Destination",dm);
-	glutAddMenuEntry("Quit",1);
+    glutAddMenuEntry("Restart App",2);
+	glutAddMenuEntry("Quit",3);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(mykey);
+    
+    
+    
 	glutMainLoop();
 }
